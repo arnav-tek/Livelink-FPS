@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="DEADLINK — A cyberpunk roguelike FPS. Fight waves of rogue AI in a neon-lit arena." />
+    <title>DEADLINK — Roguelike FPS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/ui-retro.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+  </head>
+  <body>
+    <div id="game-container"></div>
+    <div id="ui-layer">
+      <!-- Dynamic Crosshair -->
+      <div id="crosshair">
+        <div class="crosshair-dot"></div>
+        <div class="crosshair-line top"></div>
+        <div class="crosshair-line bottom"></div>
+        <div class="crosshair-line left"></div>
+        <div class="crosshair-line right"></div>
+      </div>
+
+      <!-- Hit Marker -->
+      <div id="hit-marker">
+        <div class="hit-line"></div>
+        <div class="hit-line"></div>
+        <div class="hit-line"></div>
+        <div class="hit-line"></div>
+      </div>
+
+      <!-- Player Greeting -->
+      <div id="player-greeting"></div>
+
+      <!-- HUD -->
+      <div id="hud">
+        <div class="hud-row">
+          <span class="stat-label">HP</span>
+          <div class="bar-container health-bar">
+            <div class="bar-fill healthy" id="health-fill" style="width: 100%"></div>
+          </div>
+          <span class="stat-value" id="health-value">100</span>
+        </div>
+        <div class="hud-row">
+          <span class="stat-label">AMMO</span>
+          <div class="bar-container ammo-bar">
+            <div class="bar-fill" id="ammo-fill" style="width: 100%"></div>
+          </div>
+          <span class="stat-value" id="ammo-value">30/30</span>
+        </div>
+        <div class="hud-row">
+          <div id="dash-display" class="ready">⚡ DASH READY</div>
+        </div>
+      </div>
+
+      <!-- Score Display -->
+      <div id="score-display">
+        <div id="score-value">0</div>
+        <div id="wave-value">WAVE 1</div>
+      </div>
+
+      <!-- Combo Counter -->
+      <div id="combo-display">
+        <div id="combo-count">0</div>
+        <div id="combo-label">COMBO</div>
+        <div id="combo-multiplier">×1</div>
+      </div>
+
+      <!-- Wave Announcement -->
+      <div id="wave-announce">
+        <h2 id="wave-announce-text">WAVE 1</h2>
+        <p id="wave-announce-sub">INCOMING HOSTILES</p>
+      </div>
+
+      <!-- Kill Feed -->
+      <div id="kill-feed"></div>
+
+      <!-- Reload Indicator -->
+      <div id="reload-indicator">RELOADING</div>
+
+      <!-- Minimap -->
+      <div id="minimap">
+        <canvas id="minimap-canvas" width="140" height="140"></canvas>
+      </div>
+
+      <!-- Overlays -->
+      <div id="damage-overlay"></div>
+      <div id="low-health-overlay"></div>
+    </div>
+    
+    <!-- Menus -->
+    <div id="menus">
+      <div id="start-screen">
+        <h1>DEADLINK</h1>
+        <div class="subtitle">ROGUELIKE FPS PROTOTYPE</div>
+        <div class="controls-hint">
+          <div class="key-hint"><span>WASD</span> Move</div>
+          <div class="key-hint"><span>SPACE</span> Jump</div>
+          <div class="key-hint"><span>SHIFT</span> Dash</div>
+          <div class="key-hint"><span>LMB</span> Shoot</div>
+          <div class="key-hint"><span>RMB</span> Aim</div>
+          <div class="key-hint"><span>R</span> Reload</div>
+        </div>
+        <input type="text" id="player-name-input" placeholder="ENTER CALLSIGN" maxlength="15" autocomplete="off">
+        <button id="start-btn">INITIALIZE</button>
+        
+        <div class="score-table">
+          <h3>TOP OPERATIVES</h3>
+          <table>
+            <thead><tr><th class="rank-val">#</th><th>CALLSIGN</th><th style="text-align: right">SCORE</th></tr></thead>
+            <tbody id="start-high-scores"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div id="game-over-screen" class="hidden">
+        <h1>SYSTEM FAILURE</h1>
+        <p id="final-score">SCORE: 0</p>
+        
+        <div id="game-stats" style="margin-bottom: 20px; font-family: 'Share Tech Mono'; color: #00f0ff; letter-spacing: 2px;">
+          <div>HEADSHOTS: <span id="stat-headshots" style="color: #ff4400;">0</span></div>
+          <div>BODYSHOTS: <span id="stat-bodyshots" style="color: #ffdd00;">0</span></div>
+        </div>
+        
+        <button id="restart-btn" style="margin-bottom: 30px;">REBOOT SYSTEM</button>
+        
+        <div class="score-table">
+          <h3>TOP OPERATIVES</h3>
+          <table>
+            <thead><tr><th class="rank-val">#</th><th>CALLSIGN</th><th style="text-align: right">SCORE</th></tr></thead>
+            <tbody id="gameover-high-scores"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="upgrade-screen" class="hidden">
+        <h1>WAVE CLEARED</h1>
+        <div class="subtitle">SELECT AN UPGRADE</div>
+        <div class="upgrade-container" id="upgrade-options">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
