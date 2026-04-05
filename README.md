@@ -1,6 +1,6 @@
 # Deadline — Web-based Roguelite FPS
 
-![Gameplay Showcase](./gameplay_demo.webp)
+![Project Showcase](./hero_image.png)
 
 A fast-paced, high-octane FPS built with **Three.js** and **Cannon-es**, featuring procedural generation, smart AI combat, and a satisfying dash-slash roguelite loop.
 
